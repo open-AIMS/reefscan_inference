@@ -1,0 +1,2 @@
+models/classifier/ filter=lfs diff=lfs merge=lfs -text
+models/ft_ext filter=lfs diff=lfs merge=lfs -text
