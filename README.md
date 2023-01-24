@@ -1,10 +1,10 @@
 # reefscan_inference
 This application runs inference on a folder of images and exports a .csv file containing the following data fields
 ```
-image_path | image_id | point_num | point_id | point_coordinate | true_class | pred_class
+image_path | image_id | point_num | point_id | point_coordinate | true_class | pred_class | true_group | pred_group
 ```
 
-It also exports a json file containing the group coverage of the inferenced classes.
+Additionally, it produces another .csv file containing a coverage summary of the class groups.
 
 ## Running the program
 ```
@@ -13,8 +13,9 @@ python3 reefscan_inference.py <optional arguments>
 
 Optional arguments along with their default values:
 ```
---feature_extractor='../models/ft_ext/weights.best.hdf5'
+--feature_extractor='../models/ft_ext/weights.best.hdf5' 
 --classifier='../models/classifier/reefscan.sav'
+--group_labels_csv_file='../models/reefscan_group_labels.csv'
 --points_csv_file='../data/reefscan_points.csv'
 --local_image_dir='../data/input_images'
 --image_path_key='image_path'
@@ -23,7 +24,8 @@ Optional arguments along with their default values:
 --label_key='point_human_classification'
 --cut_divisor=12
 --intermediate_feature_outputs_path='../models/features.csv'
---output_results_file='../results.csv
+--output_results_file='../results/results.csv'
+--output_coverage_file='../results/coverage-summary.csv'
 ```
 
 ## Usage

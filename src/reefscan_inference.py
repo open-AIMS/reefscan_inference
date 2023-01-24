@@ -134,7 +134,7 @@ def infer_features(input_data,
     return df
 
 
-def infer_class(features_data, model, scaler, encoder, output_results_file):
+def infer_class(features_data, model, scaler, encoder, group_labels_csv_file, output_results_file, output_coverage_file):
     def get_XY(df, n_features=128, label_col='encoded_label'):
         feat_cols = []
         for i in range(n_features):
@@ -165,13 +165,32 @@ def infer_class(features_data, model, scaler, encoder, output_results_file):
     df_results['true_class'] = true_labels
     df_results['pred_class'] = pred_labels
 
+    df_labels = pd.read_csv(group_labels_csv_file)
+    desc_mapping = dict(zip(df_labels["code"], df_labels["description"]))
+    grp_mapping =  dict(zip(df_labels["code"], df_labels["group_code"]))
+
+    df_results['true_group'] = df_results['true_class'].map(grp_mapping)
+    df_results['pred_group'] = df_results['pred_class'].map(grp_mapping)
+
     print(df_results)
     df_results.to_csv(output_results_file)
 
+    df_coverage = pd.DataFrame()
+    df_coverage['true_counts'] = df_results.groupby('true_group').size()
+    df_coverage['true_percentage'] = [element / df_coverage['true_counts'].sum() for element in df_coverage['true_counts']]
+    df_coverage['pred_counts'] = df_results.groupby('pred_group').size()
+    df_coverage['pred_percentage'] = [element / df_coverage['pred_counts'].sum() for element in df_coverage['pred_counts']]
+    df_coverage = df_coverage.fillna(0)
+    df_coverage.index.names = ['group']
+    df_coverage.loc['total'] = df_coverage.iloc[:].sum()
+
+    print(df_coverage)
+    df_coverage.to_csv(output_coverage_file)
 
 
 def inference(feature_extractor='../models/ft_ext/weights.best.hdf5', 
-              classifier='../models/classifier/reefscan.sav', 
+              classifier='../models/classifier/reefscan.sav',
+              group_labels_csv_file='../models/reefscan_group_labels.csv', 
               points_csv_file='../data/reefscan_points.csv',
               local_image_dir='../data/input_images', 
               image_path_key='image_path', 
@@ -180,7 +199,8 @@ def inference(feature_extractor='../models/ft_ext/weights.best.hdf5',
               label_key='point_human_classification',
               cut_divisor=12,
               intermediate_feature_outputs_path='../models/features.csv',
-              output_results_file='../results.csv'):
+              output_results_file='../results/results.csv',
+              output_coverage_file='../results/coverage-summary.csv'):
 
     df_input = read_csv_and_get_relevant_fields(points_csv_file, local_image_dir)
 
@@ -194,7 +214,7 @@ def inference(feature_extractor='../models/ft_ext/weights.best.hdf5',
         df_features = infer_features(df_input, feature_extractor, feature_out_path=intermediate_feature_outputs_path)
 
     model, scaler, encoder = joblib.load(classifier)
-    infer_class(df_features, model, scaler, encoder, output_results_file)
+    infer_class(df_features, model, scaler, encoder, group_labels_csv_file, output_results_file, output_coverage_file)
 
 def main(**kwargs):
     print('Starting inference')

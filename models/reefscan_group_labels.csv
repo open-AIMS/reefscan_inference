@@ -1,0 +1,72 @@
+"id","code","description","group_code","label_set_id"
+48518,"CT-B","Tabulate non-Acropora - Bleached","HC",281
+48519,"CHL-B","Heliopora - Bleached","OT-B",281
+48520,"CME-B","Millepora - Bleached","OT-B",281
+48521,"OT-B","Other organisms - Bleached","OT-B",281
+48522,"ZO-B","Zoanthid - Bleached","OT-B",281
+48523,"SE-B","Encrusting Soft Coral - Bleached","SC-B",281
+48524,"SER-B","Errect Soft Coral - Bleached","SC-B",281
+48526,"SP-B","Sponge - Bleached","SP",281
+48527,"UNK-R","Unknown - Review?","IN",281
+48528,"ACB-F","Branching Acropora - Fluorescing","HC",281
+48530,"ACE-F","Encrusting Acropora - Fluorescing","HC",281
+48531,"ACO-F","Corymbose Acropora - Fluorescing","HC",281
+48532,"ACS-F","Submassive Acropora - Fluorescing","HC",281
+48533,"ACT-F","Tabulate Acropora - Fluorescing","HC",281
+48534,"ACX-F","Bottlebrush Acropora - Fluorescing","HC",281
+48529,"ACD-F","Digitate Acropora - Fluorescing","HC",281
+48596,"CS-F","Submassive non-Acropora - Fluorescing","HC",281
+46369,"AO","Algae Other","A",281
+46370,"CA","Coralline algae","A",281
+46371,"MA","Macroalgae","A",281
+46372,"TA","Turf algae","A",281
+46373,"AB","Abiotic","AB",281
+46374,"DC","Dead coral (recent)","AB",281
+46375,"R","Rubble","AB",281
+46376,"RCK","Reefal substrate","AB",281
+46377,"S","Sand","AB",281
+46378,"SHELLS","Shells","AB",281
+46379,"SI","Silt","AB",281
+46380,"ST","Silt Transient","AB",281
+46381,"ACB","Branching Acropora","HC",281
+46382,"ACD","Digitate Acropora","HC",281
+46383,"ACE","Encrusting Acropora","HC",281
+46384,"ACO","Corymbose Acropora","HC",281
+46385,"ACS","Submassive Acropora","HC",281
+46386,"ACT","Tabulate Acropora","HC",281
+46387,"ACX","Bottlebrush Acropora","HC",281
+46388,"CB","Branching non-Acropora","HC",281
+46389,"CE","Encrusting non-Acropora","HC",281
+46390,"CF","Foliose non-Acropora","HC",281
+46391,"CL","Solitary coral","HC",281
+46392,"CM","Massive non-Acropora","HC",281
+46393,"CMR","Mushroom coral","HC",281
+46394,"CS","Submassive non-Acropora","HC",281
+46395,"CT","Tabulate non-Acropora","HC",281
+46396,"UNK","Unknown","IN",281
+46397,"WA","Water","IN",281
+46398,"CHL","Heliopora","OT",281
+46399,"CME","Millepora","OT",281
+46400,"OT","Other organisms","OT",281
+46401,"ZO","Zoanthid","OT",281
+46402,"SE","Encrusting Soft Coral","SC",281
+46403,"SER","Errect Soft Coral","SC",281
+46404,"SG","SG","SG",281
+46405,"SP","Sponge","SP",281
+51021,"CE-F","Encrusting non-Acropora - Fluorescing","HC",281
+51022,"CB-F","Branching non-Acropora - Fluorescing","HC",281
+51023,"CM-F","Massive non-Acropora - Fluorescing","HC",281
+48504,"ACB-B","Branching Acropora - Bleached","HC",281
+48505,"ACD-B","Digitate Acropora - Bleached","HC",281
+48506,"ACE-B","Encrusting Acropora - Bleached","HC",281
+48507,"ACO-B","Corymbose Acropora - Bleached","HC",281
+48508,"ACS-B","Submassive Acropora - Bleached","HC",281
+48509,"ACT-B","Tabulate Acropora - Bleached","HC",281
+48510,"ACX-B","Bottlebrush Acropora - Bleached","HC",281
+48511,"CB-B","Branching non-Acropora - Bleached","HC",281
+48513,"CF-B","Foliose non-Acropora - Bleached","HC",281
+48514,"CL-B","Solitary coral - Bleached","HC",281
+48512,"CE-B","Encrusting non-Acropora - Bleached","HC",281
+48515,"CM-B","Massive non-Acropora - Bleached","HC",281
+48516,"CMR-B","Mushroom coral - Bleached","HC",281
+48517,"CS-B","Submassive non-Acropora - Bleached","HC",281

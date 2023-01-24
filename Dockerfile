@@ -16,6 +16,7 @@ RUN  mkdir /app
 COPY src /app/src
 COPY data /app/data
 COPY models /app/models
+COPY results /app/results
 RUN ls /app
 
 RUN rm -f /usr/lib/x86_64-linux-gnu/libnvidia-ml.so.1 /usr/lib/x86_64-linux-gnu/libcuda.so.1
