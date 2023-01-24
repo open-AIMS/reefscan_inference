@@ -37,14 +37,14 @@ If you are using the program with the default arguments, do the following steps.
     - The program will load `./models/ft_ext/weights.best.hdf5` as the feature extraction model
     - The program will load `./models/classifier/reefscan.sav` as the classification model
 4. The program will extract an intermediate `./models/features.csv` file that acts as a cache so that feature extraction is only done once for the particular set of images to be inferenced.
-5. The program will output `./results.csv` and `./group-coverage.json` for the results.
+5. The program will output `./results/results.csv` for the predictions and `./results/coverage-summary.csv` for the coverage information.
 
 
 # Docker image
 
 There is a prebuilt Linux docker image that contains all the dependencies required for running this application, e.g. CUDA toolkit, CUDNN.  
 
-It can be found [here](https://aimsgovau-my.sharepoint.com/personal/p_tenedero_aims_gov_au/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fp%5Ftenedero%5Faims%5Fgov%5Fau%2FDocuments%2Freefscan%2Dinference%2Dfiles%2Freefscan%2Dinference%2Dlatest%2Etar%2Egz&parent=%2Fpersonal%2Fp%5Ftenedero%5Faims%5Fgov%5Fau%2FDocuments%2Freefscan%2Dinference%2Dfiles). 
+It can be found [here](https://aimsgovau-my.sharepoint.com/personal/p_tenedero_aims_gov_au/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fp%5Ftenedero%5Faims%5Fgov%5Fau%2FDocuments%2Freefscan%2Dinference%2Dfiles%2Freefscan%2Dinference%2Dlatest%2Ddockerimg%2Etar%2Egz&parent=%2Fpersonal%2Fp%5Ftenedero%5Faims%5Fgov%5Fau%2FDocuments%2Freefscan%2Dinference%2Dfiles). 
 
 Note: It is a huge file (~5GB compressed / ~10GB on disk).
 
