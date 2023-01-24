@@ -40,7 +40,15 @@ If you are using the program with the default arguments, do the following steps.
 
 # Docker image
 
-There is a prebuilt docker image that contains all the dependencies required for running this application. It is a huge file (~5GB compressed / ~10GB on disk) and can be found [here](https://aimsgovau-my.sharepoint.com/personal/p_tenedero_aims_gov_au/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fp%5Ftenedero%5Faims%5Fgov%5Fau%2FDocuments%2Freefscan%2Dinference%2Dfiles%2Freefscan%2Dinference%2Dlatest%2Etar%2Egz&parent=%2Fpersonal%2Fp%5Ftenedero%5Faims%5Fgov%5Fau%2FDocuments%2Freefscan%2Dinference%2Dfiles). Load it via the command `docker load --input reefscan-inference-latest.tar.gz`
+There is a prebuilt Linux docker image that contains all the dependencies required for running this application, e.g. CUDA toolkit, CUDNN.  
+
+It can be found [here](https://aimsgovau-my.sharepoint.com/personal/p_tenedero_aims_gov_au/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fp%5Ftenedero%5Faims%5Fgov%5Fau%2FDocuments%2Freefscan%2Dinference%2Dfiles%2Freefscan%2Dinference%2Dlatest%2Etar%2Egz&parent=%2Fpersonal%2Fp%5Ftenedero%5Faims%5Fgov%5Fau%2FDocuments%2Freefscan%2Dinference%2Dfiles). 
+
+Note: It is a huge file (~5GB compressed / ~10GB on disk).
+
+Load it via the command `docker load --input reefscan-inference-latest.tar.gz`
+
+Otherwise, it can be built locally if it is more convenient.
 
 ## Requirements for Windows
 - wsl2
