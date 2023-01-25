@@ -26,18 +26,25 @@ Optional arguments along with their default values:
 --intermediate_feature_outputs_path='../models/features.csv'
 --output_results_file='../results/results.csv'
 --output_coverage_file='../results/coverage-summary.csv'
+--use_cache='False'
 ```
 
 ## Usage
 
 If you are using the program with the default arguments, do the following steps. Otherwise, substitute the arguments with the specified path as needed.
 1. Place the input images inside `./data/input_images`
-2. Replace the file `./data/reefscan_points.csv` with the one corresponding to the images
+2. There must be a corresponding csv file with the following columns. By default this file is in `./data/reefscan_points.csv`.
+    - 'point_human_classification', 
+    - 'image_name', 
+    - 'image_id', 
+    - 'point_num', 
+    - 'point_id', 
+    - 'point_coordinate'
 3. Run the program
     - The program will load `./models/ft_ext/weights.best.hdf5` as the feature extraction model
     - The program will load `./models/classifier/reefscan.sav` as the classification model
-4. The program will extract an intermediate `./models/features.csv` file that acts as a cache so that feature extraction is only done once for the particular set of images to be inferenced.
-5. The program will output `./results/results.csv` for the predictions and `./results/coverage-summary.csv` for the coverage information.
+    - **OPTIONAL: When running the program again for the same particular set of images, add the argument `--use_cache` to save time and avoid redoing the feature extraction step. This is because when the program was first run, it would have saved an intermediate file `./models/features.csv` that caches the feature extraction results.**
+4. The program will output `./results/results.csv` for the predictions and `./results/coverage-summary.csv` for the coverage information.
 
 
 # Docker image
@@ -73,7 +80,7 @@ docker build -t reefscan-inference .
 
 ## Running the docker image
 ```
-docker run --gpus all reefscan-inference /bin/bash -c "cd app/src && python3 reefscan_inference.py"
+docker run -it --mount type=bind,source="$(pwd)",target=/app --gpus all reefscan-inference /bin/bash -c "cd app/src && python3 reefscan_inference.py"
 ```
 
 Alternatively, run the script `run_docker_image.sh`

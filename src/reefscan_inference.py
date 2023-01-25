@@ -200,13 +200,16 @@ def inference(feature_extractor='../models/ft_ext/weights.best.hdf5',
               cut_divisor=12,
               intermediate_feature_outputs_path='../models/features.csv',
               output_results_file='../results/results.csv',
-              output_coverage_file='../results/coverage-summary.csv'):
+              output_coverage_file='../results/coverage-summary.csv',
+              use_cache='False'):
+
+    using_cache = False if use_cache.lower() in ['False','false'] else True
 
     df_input = read_csv_and_get_relevant_fields(points_csv_file, local_image_dir)
 
     # To save time and avoid redoing the feature extraction, the program will first check
     # whether there exists a csv file with the extracted features  
-    if os.path.exists(intermediate_feature_outputs_path):
+    if using_cache and os.path.exists(intermediate_feature_outputs_path):
         print("Using saved features from previous feature extraction inference")
         df_features = pd.read_csv(intermediate_feature_outputs_path)
     else:
@@ -218,10 +221,13 @@ def inference(feature_extractor='../models/ft_ext/weights.best.hdf5',
 
 def main(**kwargs):
     print('Starting inference')
+
     for key, value in kwargs.items():
-        print(f'Entered as an input: {key}={value}')
+        print(f'Arg: {key}={value}')
+    
     inference(**kwargs)
 
 if __name__ == '__main__':
-    main(**dict(arg.split('=') for arg in sys.argv[1:]))
+    sysargs = [arg.replace("--","") for arg in sys.argv[1:]]
+    main(**dict(arg.split('=') if '=' in arg else [arg, True] for arg in sysargs))
 
