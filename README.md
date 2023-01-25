@@ -34,12 +34,15 @@ Optional arguments along with their default values:
 If you are using the program with the default arguments, do the following steps. Otherwise, substitute the arguments with the specified path as needed.
 1. Place the input images inside `./data/input_images`
 2. There must be a corresponding csv file with the following columns. By default this file is in `./data/reefscan_points.csv`.
-    - 'point_human_classification', 
-    - 'image_name', 
-    - 'image_id', 
-    - 'point_num', 
-    - 'point_id', 
-    - 'point_coordinate'
+    - Required fields
+        - `'image_name'`
+        - `'point_num'`
+        - `'point_coordinate'`
+    - Optional fields (if they do not exist then they will be created by the program as empty columns)
+        - `'point_human_classification'`
+        - `'point_id'`
+        - `'image_id'` 
+
 3. Run the program
     - The program will load `./models/ft_ext/weights.best.hdf5` as the feature extraction model
     - The program will load `./models/classifier/reefscan.sav` as the classification model
@@ -55,7 +58,7 @@ It can be found [here](https://aimsgovau-my.sharepoint.com/personal/p_tenedero_a
 
 Note: It is a huge file (~5GB compressed / ~10GB on disk).
 
-Load it via the command `docker load --input reefscan-inference-latest.tar.gz`
+Load it via the command `docker load --input reefscan-inference-latest-dockerimg.tar.gz`
 
 Otherwise, it can be built locally if it is more convenient.
 

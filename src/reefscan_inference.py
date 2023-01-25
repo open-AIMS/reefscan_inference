@@ -29,11 +29,22 @@ def load_image_and_crop_localfile(image_path, point_x, point_y, crop_width, crop
     img = img.resize((crop_width, crop_height), Image.NEAREST)    
     return img
 
+# Based on a given key, it copies the column of df_reference
+# to df_main if the key exists, otherwise create column with empty strings
+def make_columns(keylist, df_main, df_reference):
+    df = df_main.copy()
+    for key in keylist:
+        df[key] = df_reference[key] if key in df_reference.columns else ""
+    return df
+
 def read_csv_and_get_relevant_fields(csvpath, localimagedir):
-    df = pd.read_csv(csvpath)
+    df_input = pd.read_csv(csvpath)
 
     # Extract relevant fields from data
-    df = df[['point_human_classification', 'image_name', 'image_id', 'point_num', 'point_id', 'point_coordinate']]
+    df = df_input[['image_name', 'point_num', 'point_coordinate']]
+
+    optional_fields = ['image_id', 'point_id', 'point_human_classification']
+    df = make_columns(optional_fields, df, df_input)
 
     # Get individual coordinates; append image name to where the local folder is
     df['point_x'] = df.apply(lambda row: int(str(row.point_coordinate).split(',')[0]), axis=1)
