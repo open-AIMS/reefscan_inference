@@ -8,7 +8,7 @@ Additionally, it produces another .csv file containing a coverage summary of the
 
 ## Running the program
 ```
-python3 reefscan_inference.py <optional arguments>
+python reefscan_inference.py <optional arguments>
 ```
 
 Optional arguments along with their default values:
@@ -16,7 +16,7 @@ Optional arguments along with their default values:
 --feature_extractor='../models/ft_ext/weights.best.hdf5' 
 --classifier='../models/classifier/reefscan.sav'
 --group_labels_csv_file='../models/reefscan_group_labels.csv'
---points_csv_file='../data/reefscan_points.csv'
+--points_csv_file=''
 --local_image_dir='../data/input_images'
 --image_path_key='image_path'
 --point_x_key='pointx'
@@ -27,28 +27,24 @@ Optional arguments along with their default values:
 --output_results_file='../results/results.csv'
 --output_coverage_file='../results/coverage-summary.csv'
 --use_cache='False'
+--use_gpu='False'
 ```
 
 ## Usage
 
-If you are using the program with the default arguments, do the following steps. Otherwise, substitute the arguments with the specified path as needed.
-1. Place the input images inside `./data/input_images`
-2. There must be a corresponding csv file with the following columns. By default this file is in `./data/reefscan_points.csv`.
-    - Required fields
-        - `'image_name'` : name of the image
-        - `'point_num'` : point number of the image (typical values: 1 - 5)
-        - `'point_coordinate'` : x,y pixel location of the point in the image
-    - Optional fields (if they do not exist then they will be created by the program as empty columns)
-        - `'point_human_classification'` : ground truth label
-        - `'point_id'` 
-        - `'image_id'` 
-
+1. Navigate to `./src`
+2. Place the input images inside `./data/input_images`, or specify image path as follows:
+```py
+    python reefscan_inference.py --local_image_dir='<path-to-the-dir-with-new-images>'
+```
 3. Run the program
     - The program will load `./models/ft_ext/weights.best.hdf5` as the feature extraction model
     - The program will load `./models/classifier/reefscan.sav` as the classification model
     - **OPTIONAL: When running the program again for the same particular set of images, add the argument `--use_cache` to save time and avoid redoing the feature extraction step. This is because when the program was first run, it would have saved an intermediate file `./models/features.csv` that caches the feature extraction results.**
 4. The program will output `./results/results.csv` for the predictions and `./results/coverage-summary.csv` for the coverage information.
 
+
+(**Update 2023-02-06**: Previously it was required to have a points csv file that goes with the input images. From this date it is now optional. The program will instead internally fill in a new dataframe that contains the 5 points that you would typically see in a points csv file)
 
 # Docker image
 
