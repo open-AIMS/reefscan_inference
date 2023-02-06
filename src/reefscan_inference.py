@@ -6,6 +6,7 @@ import pandas as pd
 from PIL import Image
 from time import time
 import joblib
+import tensorflow as tf
 
 from sklearn.metrics import classification_report
 
@@ -19,6 +20,11 @@ import utils
 from inference_csv import convertTime
 from old.fullimagepointcroppingloader import FullImagePointCroppingLoader
 
+DEFAULT_COORDS=['1328, 760',
+'3984, 760',
+'2656, 1520',
+'1328, 2280',
+'3984, 2280']
 
 def load_image_and_crop_localfile(image_path, point_x, point_y, crop_width, crop_height, cut_divisor=8):
     img = Image.open(image_path)
@@ -37,6 +43,35 @@ def make_columns(keylist, df_main, df_reference):
         df[key] = df_reference[key] if key in df_reference.columns else ""
     return df
 
+
+# Creates a points dataframe that terates through the local test directory and
+# adds arbitrary coordinate values and point numbers similar to the typical exported reefscan points csv
+def create_points_df(localimagedir):
+    df = pd.DataFrame()
+    files_list = os.listdir(localimagedir)
+
+    df['image_path'] = [os.path.join(localimagedir, f) for f in files_list for i in range(5) ]
+    df['point_coordinate'] = [default_coord for i in range(len(files_list)) for default_coord in DEFAULT_COORDS]
+    df['point_num'] = [j+1 for i in range(len(files_list)) for j in range(5)]
+
+
+    # Get individual coordinates; append image name to where the local folder is
+    df['point_x'] = df.apply(lambda row: int(str(row.point_coordinate).split(',')[0]), axis=1)
+    df['point_y'] = df.apply(lambda row: int(str(row.point_coordinate).split(',')[1]), axis=1)
+
+    # Remove rows with missing fields
+    df = df.dropna(axis=0)
+
+    df = df.reset_index()
+
+    optional_fields = ['image_id', 'point_id', 'point_human_classification']
+    df = make_columns(optional_fields, df, df)
+
+    print(df)
+
+    return df
+
+
 def read_csv_and_get_relevant_fields(csvpath, localimagedir):
     df_input = pd.read_csv(csvpath)
 
@@ -52,7 +87,8 @@ def read_csv_and_get_relevant_fields(csvpath, localimagedir):
     df['image_path'] = df.apply(lambda row: str(os.path.join(localimagedir, row.image_name)), axis=1)
 
     # Remove rows with missing fields
-    df = df.dropna(axis=0)
+    # df = df.dropna(axis=0)
+    df = df.fillna('None')
 
     df = df.reset_index()
 
@@ -180,8 +216,12 @@ def infer_class(features_data, model, scaler, encoder, group_labels_csv_file, ou
     desc_mapping = dict(zip(df_labels["code"], df_labels["description"]))
     grp_mapping =  dict(zip(df_labels["code"], df_labels["group_code"]))
 
+    df_results['true_desc'] = df_results['true_class'].map(desc_mapping)
+    df_results['pred_desc'] = df_results['pred_class'].map(desc_mapping)
+
     df_results['true_group'] = df_results['true_class'].map(grp_mapping)
     df_results['pred_group'] = df_results['pred_class'].map(grp_mapping)
+
 
     print(df_results)
     df_results.to_csv(output_results_file)
@@ -198,11 +238,13 @@ def infer_class(features_data, model, scaler, encoder, group_labels_csv_file, ou
     print(df_coverage)
     df_coverage.to_csv(output_coverage_file)
 
+def str2bool(mystr):
+    return False if mystr.lower() in ['0','false'] else True
 
 def inference(feature_extractor='../models/ft_ext/weights.best.hdf5', 
               classifier='../models/classifier/reefscan.sav',
               group_labels_csv_file='../models/reefscan_group_labels.csv', 
-              points_csv_file='../data/reefscan_points.csv',
+              points_csv_file='',
               local_image_dir='../data/input_images', 
               image_path_key='image_path', 
               point_x_key='pointx', 
@@ -212,14 +254,25 @@ def inference(feature_extractor='../models/ft_ext/weights.best.hdf5',
               intermediate_feature_outputs_path='../models/features.csv',
               output_results_file='../results/results.csv',
               output_coverage_file='../results/coverage-summary.csv',
-              use_cache='False'):
+              use_cache='False',
+              use_gpu='False'):
 
-    using_cache = False if use_cache.lower() in ['False','false'] else True
+    # Resolve string args to bools
+    using_cache = str2bool(use_cache)
+    using_gpu = str2bool(use_gpu)
 
-    df_input = read_csv_and_get_relevant_fields(points_csv_file, local_image_dir)
+    # GPU Setup if using_gpu
+    if using_gpu:
+        print('Confirm TF is using gpu')
+        gpu_devices = tf.config.experimental.list_physical_devices('GPU')
+        print(gpu_devices)
+        tf.config.experimental.set_memory_growth(gpu_devices[0], True)
 
-    # To save time and avoid redoing the feature extraction, the program will first check
-    # whether there exists a csv file with the extracted features  
+    if points_csv_file:
+        df_input = read_csv_and_get_relevant_fields(points_csv_file, local_image_dir)
+    else:
+        df_input = create_points_df(local_image_dir)
+
     if using_cache and os.path.exists(intermediate_feature_outputs_path):
         print("Using saved features from previous feature extraction inference")
         df_features = pd.read_csv(intermediate_feature_outputs_path)
@@ -236,9 +289,13 @@ def main(**kwargs):
     for key, value in kwargs.items():
         print(f'Arg: {key}={value}')
     
+    overall_start = time()
     inference(**kwargs)
+    overall_end = time()
+
+    print(f'Total elapsed time is {overall_end - overall_start} seconds')
 
 if __name__ == '__main__':
     sysargs = [arg.replace("--","") for arg in sys.argv[1:]]
-    main(**dict(arg.split('=') if '=' in arg else [arg, True] for arg in sysargs))
+    main(**dict(arg.split('=') if '=' in arg else [arg, 'True'] for arg in sysargs))
 

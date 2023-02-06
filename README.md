@@ -35,12 +35,12 @@ If you are using the program with the default arguments, do the following steps.
 1. Place the input images inside `./data/input_images`
 2. There must be a corresponding csv file with the following columns. By default this file is in `./data/reefscan_points.csv`.
     - Required fields
-        - `'image_name'`
-        - `'point_num'`
-        - `'point_coordinate'`
+        - `'image_name'` : name of the image
+        - `'point_num'` : point number of the image (typical values: 1 - 5)
+        - `'point_coordinate'` : x,y pixel location of the point in the image
     - Optional fields (if they do not exist then they will be created by the program as empty columns)
-        - `'point_human_classification'`
-        - `'point_id'`
+        - `'point_human_classification'` : ground truth label
+        - `'point_id'` 
         - `'image_id'` 
 
 3. Run the program

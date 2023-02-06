@@ -1,5 +1,9 @@
 ## Ignore the images directory (large files)
 data/input_images/*
+test-images
+
+## Ignore large libraries
+lib
 
 ## Ignore saved docker containers (large files)
 reefscan-inference*.gz
