@@ -3,6 +3,7 @@ import sys
 
 import numpy as np
 import pandas as pd
+import PIL
 from PIL import Image
 from time import time
 import joblib
@@ -26,14 +27,31 @@ DEFAULT_COORDS=['1328, 760',
 '1328, 2280',
 '3984, 2280']
 
+GLOBAL_REMOVE_LIST = []
+
+def get_index_of_extension(name):
+    return name.find(f".{name.split('.')[-1]}")
+
+def isImageFile(name):
+    ext = name[get_index_of_extension(name)+1:]
+    valid_ext = ['jpg','jpeg','png','bmp','svg','webp','ico','tiff','avif']
+    return ext.lower() in valid_ext
+
 def load_image_and_crop_localfile(image_path, point_x, point_y, crop_width, crop_height, cut_divisor=8):
-    img = Image.open(image_path)
-    width, height = img.size
-    cut_width = int(height/cut_divisor)
-    cut_height = int(height/cut_divisor)
-    img = utils.cut_patch(img, cut_width, cut_height, point_x, point_y)
-    img = img.resize((crop_width, crop_height), Image.NEAREST)    
-    return img
+    try:
+        img = Image.open(image_path)
+        width, height = img.size
+        cut_width = int(height/cut_divisor)
+        cut_height = int(height/cut_divisor)
+        img = utils.cut_patch(img, cut_width, cut_height, point_x, point_y)
+        img = img.resize((crop_width, crop_height), Image.NEAREST)
+        return img
+    except PIL.UnidentifiedImageError:    
+        print(f'Error loading image {image_path}: image is invalid or corrupt')
+        global GLOBAL_REMOVE_LIST
+        GLOBAL_REMOVE_LIST.append(image_path)
+        return Image.new(mode='RGB', size=(crop_width, crop_height))
+
 
 # Based on a given key, it copies the column of df_reference
 # to df_main if the key exists, otherwise create column with empty strings
@@ -58,6 +76,9 @@ def create_points_df(localimagedir):
     # Get individual coordinates; append image name to where the local folder is
     df['point_x'] = df.apply(lambda row: int(str(row.point_coordinate).split(',')[0]), axis=1)
     df['point_y'] = df.apply(lambda row: int(str(row.point_coordinate).split(',')[1]), axis=1)
+
+    # Remove rows that are non-image files
+    df = df[[isImageFile(str(img)) for img in df.image_path]]
 
     # Remove rows with missing fields
     df = df.dropna(axis=0)
@@ -92,7 +113,27 @@ def read_csv_and_get_relevant_fields(csvpath, localimagedir):
 
     df = df.reset_index()
 
+
     return df
+
+
+def split_df(df, batch_size):
+    array_of_dfs = []
+    array_size = int(len(df) / batch_size) + 1
+    for i in range(array_size):
+        start_idx = i * batch_size
+        end_idx = np.minimum(len(df), (i+1) * batch_size)
+        array_of_dfs.append(df.iloc[start_idx : end_idx])
+    return array_of_dfs
+
+def merge_df(array_of_dfs):
+    return pd.concat(array_of_dfs, ignore_index=False)
+
+def load_saved_state(saved_state_csv):
+    finished_df = pd.read_csv(saved_state_csv)
+    finished_df = finished_df.fillna('None')
+    print(f'\n###\n#\n# Last saved at dataframe index {finished_df.index[-1]} \n#\n###\n')
+    return finished_df, finished_df.index[-1]
 
 
 # Modified version of `inference` from vector_experiments/src/inference_csv.py
@@ -103,7 +144,9 @@ def infer_features(input_data,
               point_y_key='point_y', 
               label_key='point_human_classification',
               cut_divisor=12,
-              feature_out_path='../models/features.csv'):
+              feature_out_path='../models/features.csv',
+              temp_feature_out_path='../models/temp_features.csv'):
+
 
     IMG_PATH_KEY = image_path_key
     POINT_X_KEY = point_x_key
@@ -118,65 +161,96 @@ def infer_features(input_data,
 
     print(df)
 
-    X = []
-    y = []
 
-
-    if LABEL_KEY == 'unlabelled':
-        for index, row in df.iterrows():
-            X.append({"image_path": row[IMG_PATH_KEY], "point_x": row[POINT_X_KEY], "point_y": row[POINT_Y_KEY]})
-            y.append(LABEL_KEY)
-    else: 
-        for index, row in df.iterrows():
-            X.append({"image_path": row[IMG_PATH_KEY], "point_x": row[POINT_X_KEY], "point_y": row[POINT_Y_KEY]})
-            y.append(row[LABEL_KEY])
-
-    import random
     def cropping_function(image_dict):
         patch = load_image_and_crop_localfile(image_dict["image_path"], image_dict["point_x"], image_dict["point_y"], 256, 256,cut_divisor=cut_divisor)
-        patch = img_to_array(patch)
+        patch = img_to_array(patch)            
         return patch
 
-    batch_size = 32
-    val_generator = FullImagePointCroppingLoader(X, y, batch_size, cropping_function)
 
+
+    saved_state_batch_size = 512
+
+    loaded_df = pd.DataFrame()
+    if os.path.exists(temp_feature_out_path):
+        print(f'\n###\n#\n# FOUND TEMPORARY SAVED STATE FILE\n#\n###\n')
+        loaded_df, saved_state_cursor = load_saved_state(temp_feature_out_path)
+        array_of_dfs = split_df(df.iloc[saved_state_cursor+1 :], saved_state_batch_size)
+    else:
+        array_of_dfs = split_df(df, saved_state_batch_size)
 
     tic = time()
     print('Starting inference...')
-    predictions = model.predict_generator(val_generator,
-                                          steps=(len(y) // batch_size)+1,
-                                          verbose=1,
-                                          workers=10)
 
-    print('Completed (feature extraction) inference of {} points in {}'.format(len(df), convertTime(time()-tic)))
+    for df_idx, part_df in enumerate(array_of_dfs):
+        print(f'Processing this particular DF: \n {part_df} \n :::::')
 
-    # create columns for feature vectors
-    print(np.shape(predictions), np.shape(predictions[0]))
+        X = []
+        y = []
+        if LABEL_KEY == 'unlabelled':
+            for index, row in part_df.iterrows():
+                X.append({"image_path": row[IMG_PATH_KEY], "point_x": row[POINT_X_KEY], "point_y": row[POINT_Y_KEY]})
+                y.append(LABEL_KEY)
+        else: 
+            for index, row in part_df.iterrows():
+                X.append({"image_path": row[IMG_PATH_KEY], "point_x": row[POINT_X_KEY], "point_y": row[POINT_Y_KEY]})
+                y.append(row[LABEL_KEY])
+
+
+        batch_size = 32
+
+        val_generator = FullImagePointCroppingLoader(X, y, batch_size, cropping_function)
+
+
+
+        if len(y) % batch_size == 0:
+            steps = len(y) // batch_size
+        else:
+            steps = (len(y) // batch_size) + 1
+
+        predictions = model.predict_generator(val_generator,
+                                            steps=steps,
+                                            verbose=1,
+                                            workers=10)
+
+        print('Completed (feature extraction) inference of {} points in {}'.format(len(part_df), convertTime(time()-tic)))
     
-    cols = []
-    for i in range(len(predictions[0])):
-        cols.append('feature_vector_{}'.format(i))
-    df_vects = pd.DataFrame(predictions, columns=cols)
 
-    df = pd.concat([df, df_vects], axis=1)
-    df.to_csv(feature_out_path, index=False)
-    print('Saved inference results to {}'.format(feature_out_path))
+        # create columns for feature vectors
+        print(np.shape(predictions), np.shape(predictions[0]))
+        
+        # cols = []
+        # for i in range(len(predictions[0])):
+        #     cols.append('feature_vector_{}'.format(i))
+        # df_vects = pd.DataFrame(predictions, columns=cols)
 
-    # # pack the predictions and append them to the dataframe
-    # predicted_labels = []
-    # predicted_probs = []
-    # for prediction in predictions:
-    #     predicted = labels[np.argmax(prediction)]
-    #     prediction_prob = np.amax(prediction)
+        # part_df = pd.concat([part_df, df_vects], axis=1)
 
-    #     predicted_labels.append(predicted)
-    #     predicted_probs.append(prediction_prob)
 
-    # df["prediction"] = predicted_labels
-    # df["prediction_prob"] = predicted_probs
+        for i in range(len(predictions[0])):
+            part_df[f'feature_vector_{i}'] = predictions[:, i]
 
-    df.to_csv(feature_out_path)
-    print('Saved inference results to {}'.format(feature_out_path))
+        header_required = not os.path.exists(temp_feature_out_path)
+
+        part_df = part_df[~part_df['image_path'].isin(GLOBAL_REMOVE_LIST)]
+
+        part_df.to_csv(temp_feature_out_path, mode='a', index=False, header=header_required)
+        print('Saved inference results to {}'.format(temp_feature_out_path))
+
+        print(f'DF After processing: \n {part_df} \n :::::')
+
+
+        array_of_dfs[df_idx] = part_df
+
+    df = merge_df(array_of_dfs)
+    if os.path.exists(feature_out_path):
+        os.remove(feature_out_path)
+    os.rename(temp_feature_out_path, feature_out_path)
+
+    if not loaded_df.empty:
+        df = pd.concat([loaded_df, df], axis=0)
+
+    print(df)
 
     return df
 
@@ -254,6 +328,7 @@ def inference(feature_extractor='../models/ft_ext/weights.best.hdf5',
               intermediate_feature_outputs_path='../models/features.csv',
               output_results_file='../results/results.csv',
               output_coverage_file='../results/coverage-summary.csv',
+              saved_state_file='../data/saved_state.csv',
               use_cache='False',
               use_gpu='False'):
 
@@ -272,6 +347,7 @@ def inference(feature_extractor='../models/ft_ext/weights.best.hdf5',
         df_input = read_csv_and_get_relevant_fields(points_csv_file, local_image_dir)
     else:
         df_input = create_points_df(local_image_dir)
+
 
     if using_cache and os.path.exists(intermediate_feature_outputs_path):
         print("Using saved features from previous feature extraction inference")

@@ -1,6 +1,7 @@
 ## Ignore the images directory (large files)
 data/input_images/*
 test-images
+results/results_original.csv
 
 ## Ignore large libraries
 lib
