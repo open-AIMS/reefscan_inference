@@ -1,151 +1,151 @@
 ,image_path,image_id,point_num,point_id,point_coordinate,true_class,pred_class,true_desc,pred_desc,true_group,pred_group
-0,../test-images/20230112_061308_000_6852.jpg,,1,,"1328, 760",,ACB,,Branching Acropora,,HC
-1,../test-images/20230112_061308_000_6852.jpg,,2,,"3984, 760",,UNK-R,,Unknown - Review?,,IN
-2,../test-images/20230112_061308_000_6852.jpg,,3,,"2656, 1520",,ACB,,Branching Acropora,,HC
-3,../test-images/20230112_061308_000_6852.jpg,,4,,"1328, 2280",,TA,,Turf algae,,A
-4,../test-images/20230112_061308_000_6852.jpg,,5,,"3984, 2280",,TA,,Turf algae,,A
-5,../test-images/20230112_061308_000_6853.jpg,,1,,"1328, 760",,CE-B,,Encrusting non-Acropora - Bleached,,HC
-6,../test-images/20230112_061308_000_6853.jpg,,2,,"3984, 760",,TA,,Turf algae,,A
-7,../test-images/20230112_061308_000_6853.jpg,,3,,"2656, 1520",,ACB,,Branching Acropora,,HC
-8,../test-images/20230112_061308_000_6853.jpg,,4,,"1328, 2280",,ACO,,Corymbose Acropora,,HC
-9,../test-images/20230112_061308_000_6853.jpg,,5,,"3984, 2280",,ACB,,Branching Acropora,,HC
-10,../test-images/20230112_061308_000_6854.jpg,,1,,"1328, 760",,UNK,,Unknown,,IN
-11,../test-images/20230112_061308_000_6854.jpg,,2,,"3984, 760",,TA,,Turf algae,,A
-12,../test-images/20230112_061308_000_6854.jpg,,3,,"2656, 1520",,TA,,Turf algae,,A
-13,../test-images/20230112_061308_000_6854.jpg,,4,,"1328, 2280",,ACO,,Corymbose Acropora,,HC
-14,../test-images/20230112_061308_000_6854.jpg,,5,,"3984, 2280",,TA,,Turf algae,,A
-15,../test-images/20230112_061309_000_6855.jpg,,1,,"1328, 760",,ACO,,Corymbose Acropora,,HC
-16,../test-images/20230112_061309_000_6855.jpg,,2,,"3984, 760",,ACO,,Corymbose Acropora,,HC
-17,../test-images/20230112_061309_000_6855.jpg,,3,,"2656, 1520",,TA,,Turf algae,,A
-18,../test-images/20230112_061309_000_6855.jpg,,4,,"1328, 2280",,TA,,Turf algae,,A
-19,../test-images/20230112_061309_000_6855.jpg,,5,,"3984, 2280",,TA,,Turf algae,,A
-20,../test-images/20230112_061309_000_6857.jpg,,1,,"1328, 760",,ACB,,Branching Acropora,,HC
-21,../test-images/20230112_061309_000_6857.jpg,,2,,"3984, 760",,ACB,,Branching Acropora,,HC
-22,../test-images/20230112_061309_000_6857.jpg,,3,,"2656, 1520",,ACB,,Branching Acropora,,HC
-23,../test-images/20230112_061309_000_6857.jpg,,4,,"1328, 2280",,ACT,,Tabulate Acropora,,HC
-24,../test-images/20230112_061309_000_6857.jpg,,5,,"3984, 2280",,ACT,,Tabulate Acropora,,HC
-25,../test-images/20230112_061310_000_6858.jpg,,1,,"1328, 760",,UNK,,Unknown,,IN
-26,../test-images/20230112_061310_000_6858.jpg,,2,,"3984, 760",,ACO,,Corymbose Acropora,,HC
-27,../test-images/20230112_061310_000_6858.jpg,,3,,"2656, 1520",,TA,,Turf algae,,A
-28,../test-images/20230112_061310_000_6858.jpg,,4,,"1328, 2280",,CM,,Massive non-Acropora,,HC
-29,../test-images/20230112_061310_000_6858.jpg,,5,,"3984, 2280",,ACD-B,,Digitate Acropora - Bleached,,HC
-30,../test-images/20230112_061310_000_6859.jpg,,1,,"1328, 760",,CM,,Massive non-Acropora,,HC
-31,../test-images/20230112_061310_000_6859.jpg,,2,,"3984, 760",,ACB,,Branching Acropora,,HC
-32,../test-images/20230112_061310_000_6859.jpg,,3,,"2656, 1520",,TA,,Turf algae,,A
-33,../test-images/20230112_061310_000_6859.jpg,,4,,"1328, 2280",,ACB,,Branching Acropora,,HC
-34,../test-images/20230112_061310_000_6859.jpg,,5,,"3984, 2280",,ACB-B,,Branching Acropora - Bleached,,HC
-35,../test-images/20230112_061311_000_6860.jpg,,1,,"1328, 760",,DC,,Dead coral (recent),,AB
-36,../test-images/20230112_061311_000_6860.jpg,,2,,"3984, 760",,ACT,,Tabulate Acropora,,HC
-37,../test-images/20230112_061311_000_6860.jpg,,3,,"2656, 1520",,CM,,Massive non-Acropora,,HC
-38,../test-images/20230112_061311_000_6860.jpg,,4,,"1328, 2280",,UNK-R,,Unknown - Review?,,IN
-39,../test-images/20230112_061311_000_6860.jpg,,5,,"3984, 2280",,UNK-R,,Unknown - Review?,,IN
-40,../test-images/20230112_061311_000_6861.jpg,,1,,"1328, 760",,ACT,,Tabulate Acropora,,HC
-41,../test-images/20230112_061311_000_6861.jpg,,2,,"3984, 760",,UNK,,Unknown,,IN
-42,../test-images/20230112_061311_000_6861.jpg,,3,,"2656, 1520",,UNK-R,,Unknown - Review?,,IN
-43,../test-images/20230112_061311_000_6861.jpg,,4,,"1328, 2280",,ACB,,Branching Acropora,,HC
-44,../test-images/20230112_061311_000_6861.jpg,,5,,"3984, 2280",,DC,,Dead coral (recent),,AB
-45,../test-images/20230112_061312_000_6863.jpg,,1,,"1328, 760",,ACO,,Corymbose Acropora,,HC
-46,../test-images/20230112_061312_000_6863.jpg,,2,,"3984, 760",,TA,,Turf algae,,A
-47,../test-images/20230112_061312_000_6863.jpg,,3,,"2656, 1520",,ACT,,Tabulate Acropora,,HC
-48,../test-images/20230112_061312_000_6863.jpg,,4,,"1328, 2280",,ACO,,Corymbose Acropora,,HC
-49,../test-images/20230112_061312_000_6863.jpg,,5,,"3984, 2280",,ACT,,Tabulate Acropora,,HC
-50,../test-images/20230112_061312_000_6865.jpg,,1,,"1328, 760",,UNK-R,,Unknown - Review?,,IN
-51,../test-images/20230112_061312_000_6865.jpg,,2,,"3984, 760",,CM,,Massive non-Acropora,,HC
-52,../test-images/20230112_061312_000_6865.jpg,,3,,"2656, 1520",,CE-B,,Encrusting non-Acropora - Bleached,,HC
-53,../test-images/20230112_061312_000_6865.jpg,,4,,"1328, 2280",,ACB,,Branching Acropora,,HC
-54,../test-images/20230112_061312_000_6865.jpg,,5,,"3984, 2280",,TA,,Turf algae,,A
-55,../test-images/20230112_061313_000_6866.jpg,,1,,"1328, 760",,CT,,Tabulate non-Acropora,,HC
-56,../test-images/20230112_061313_000_6866.jpg,,2,,"3984, 760",,ACT,,Tabulate Acropora,,HC
-57,../test-images/20230112_061313_000_6866.jpg,,3,,"2656, 1520",,ACT,,Tabulate Acropora,,HC
-58,../test-images/20230112_061313_000_6866.jpg,,4,,"1328, 2280",,TA,,Turf algae,,A
-59,../test-images/20230112_061313_000_6866.jpg,,5,,"3984, 2280",,UNK,,Unknown,,IN
-60,../test-images/20230112_061313_000_6867.jpg,,1,,"1328, 760",,CM,,Massive non-Acropora,,HC
-61,../test-images/20230112_061313_000_6867.jpg,,2,,"3984, 760",,ACT,,Tabulate Acropora,,HC
-62,../test-images/20230112_061313_000_6867.jpg,,3,,"2656, 1520",,DC,,Dead coral (recent),,AB
-63,../test-images/20230112_061313_000_6867.jpg,,4,,"1328, 2280",,CM,,Massive non-Acropora,,HC
-64,../test-images/20230112_061313_000_6867.jpg,,5,,"3984, 2280",,ACO,,Corymbose Acropora,,HC
-65,../test-images/20230112_061314_000_6868.jpg,,1,,"1328, 760",,ACT,,Tabulate Acropora,,HC
-66,../test-images/20230112_061314_000_6868.jpg,,2,,"3984, 760",,ACB,,Branching Acropora,,HC
-67,../test-images/20230112_061314_000_6868.jpg,,3,,"2656, 1520",,ACT,,Tabulate Acropora,,HC
-68,../test-images/20230112_061314_000_6868.jpg,,4,,"1328, 2280",,ACB,,Branching Acropora,,HC
-69,../test-images/20230112_061314_000_6868.jpg,,5,,"3984, 2280",,ACT,,Tabulate Acropora,,HC
-70,../test-images/20230112_061314_000_6869.jpg,,1,,"1328, 760",,CM,,Massive non-Acropora,,HC
-71,../test-images/20230112_061314_000_6869.jpg,,2,,"3984, 760",,SE-B,,Encrusting Soft Coral - Bleached,,SC-B
-72,../test-images/20230112_061314_000_6869.jpg,,3,,"2656, 1520",,ACT,,Tabulate Acropora,,HC
-73,../test-images/20230112_061314_000_6869.jpg,,4,,"1328, 2280",,TA,,Turf algae,,A
-74,../test-images/20230112_061314_000_6869.jpg,,5,,"3984, 2280",,ACT,,Tabulate Acropora,,HC
-75,../test-images/20230112_061314_000_6870.jpg,,1,,"1328, 760",,UNK-R,,Unknown - Review?,,IN
-76,../test-images/20230112_061314_000_6870.jpg,,2,,"3984, 760",,UNK,,Unknown,,IN
-77,../test-images/20230112_061314_000_6870.jpg,,3,,"2656, 1520",,ACT,,Tabulate Acropora,,HC
-78,../test-images/20230112_061314_000_6870.jpg,,4,,"1328, 2280",,CT,,Tabulate non-Acropora,,HC
-79,../test-images/20230112_061314_000_6870.jpg,,5,,"3984, 2280",,ACT,,Tabulate Acropora,,HC
-80,../test-images/20230112_061315_000_6871.jpg,,1,,"1328, 760",,ACT,,Tabulate Acropora,,HC
-81,../test-images/20230112_061315_000_6871.jpg,,2,,"3984, 760",,S,,Sand,,AB
-82,../test-images/20230112_061315_000_6871.jpg,,3,,"2656, 1520",,UNK,,Unknown,,IN
-83,../test-images/20230112_061315_000_6871.jpg,,4,,"1328, 2280",,ACT,,Tabulate Acropora,,HC
-84,../test-images/20230112_061315_000_6871.jpg,,5,,"3984, 2280",,ACB,,Branching Acropora,,HC
-85,../test-images/20230112_061315_000_6872.jpg,,1,,"1328, 760",,S,,Sand,,AB
-86,../test-images/20230112_061315_000_6872.jpg,,2,,"3984, 760",,S,,Sand,,AB
-87,../test-images/20230112_061315_000_6872.jpg,,3,,"2656, 1520",,UNK,,Unknown,,IN
-88,../test-images/20230112_061315_000_6872.jpg,,4,,"1328, 2280",,CM,,Massive non-Acropora,,HC
-89,../test-images/20230112_061315_000_6872.jpg,,5,,"3984, 2280",,S,,Sand,,AB
-90,../test-images/20230112_061315_000_6873.jpg,,1,,"1328, 760",,S,,Sand,,AB
-91,../test-images/20230112_061315_000_6873.jpg,,2,,"3984, 760",,S,,Sand,,AB
-92,../test-images/20230112_061315_000_6873.jpg,,3,,"2656, 1520",,S,,Sand,,AB
-93,../test-images/20230112_061315_000_6873.jpg,,4,,"1328, 2280",,ACT,,Tabulate Acropora,,HC
-94,../test-images/20230112_061315_000_6873.jpg,,5,,"3984, 2280",,S,,Sand,,AB
-95,../test-images/20230112_061316_000_6874.jpg,,1,,"1328, 760",,S,,Sand,,AB
-96,../test-images/20230112_061316_000_6874.jpg,,2,,"3984, 760",,UNK,,Unknown,,IN
-97,../test-images/20230112_061316_000_6874.jpg,,3,,"2656, 1520",,S,,Sand,,AB
-98,../test-images/20230112_061316_000_6874.jpg,,4,,"1328, 2280",,S,,Sand,,AB
-99,../test-images/20230112_061316_000_6874.jpg,,5,,"3984, 2280",,S,,Sand,,AB
-100,../test-images/20230112_061316_000_6875.jpg,,1,,"1328, 760",,S,,Sand,,AB
-101,../test-images/20230112_061316_000_6875.jpg,,2,,"3984, 760",,S,,Sand,,AB
-102,../test-images/20230112_061316_000_6875.jpg,,3,,"2656, 1520",,S,,Sand,,AB
-103,../test-images/20230112_061316_000_6875.jpg,,4,,"1328, 2280",,S,,Sand,,AB
-104,../test-images/20230112_061316_000_6875.jpg,,5,,"3984, 2280",,S,,Sand,,AB
-105,../test-images/20230112_061317_000_6876.jpg,,1,,"1328, 760",,R,,Rubble,,AB
-106,../test-images/20230112_061317_000_6876.jpg,,2,,"3984, 760",,S,,Sand,,AB
-107,../test-images/20230112_061317_000_6876.jpg,,3,,"2656, 1520",,S,,Sand,,AB
-108,../test-images/20230112_061317_000_6876.jpg,,4,,"1328, 2280",,UNK,,Unknown,,IN
-109,../test-images/20230112_061317_000_6876.jpg,,5,,"3984, 2280",,S,,Sand,,AB
-110,../test-images/20230112_061317_000_6877.jpg,,1,,"1328, 760",,S,,Sand,,AB
-111,../test-images/20230112_061317_000_6877.jpg,,2,,"3984, 760",,S,,Sand,,AB
-112,../test-images/20230112_061317_000_6877.jpg,,3,,"2656, 1520",,UNK,,Unknown,,IN
-113,../test-images/20230112_061317_000_6877.jpg,,4,,"1328, 2280",,S,,Sand,,AB
-114,../test-images/20230112_061317_000_6877.jpg,,5,,"3984, 2280",,R,,Rubble,,AB
-115,../test-images/20230112_061317_000_6878.jpg,,1,,"1328, 760",,S,,Sand,,AB
-116,../test-images/20230112_061317_000_6878.jpg,,2,,"3984, 760",,S,,Sand,,AB
-117,../test-images/20230112_061317_000_6878.jpg,,3,,"2656, 1520",,S,,Sand,,AB
-118,../test-images/20230112_061317_000_6878.jpg,,4,,"1328, 2280",,S,,Sand,,AB
-119,../test-images/20230112_061317_000_6878.jpg,,5,,"3984, 2280",,S,,Sand,,AB
-120,../test-images/20230112_061318_000_6880.jpg,,1,,"1328, 760",,R,,Rubble,,AB
-121,../test-images/20230112_061318_000_6880.jpg,,2,,"3984, 760",,S,,Sand,,AB
-122,../test-images/20230112_061318_000_6880.jpg,,3,,"2656, 1520",,UNK,,Unknown,,IN
-123,../test-images/20230112_061318_000_6880.jpg,,4,,"1328, 2280",,S,,Sand,,AB
-124,../test-images/20230112_061318_000_6880.jpg,,5,,"3984, 2280",,S,,Sand,,AB
-125,../test-images/20230112_061318_000_6881.jpg,,1,,"1328, 760",,S,,Sand,,AB
-126,../test-images/20230112_061318_000_6881.jpg,,2,,"3984, 760",,S,,Sand,,AB
-127,../test-images/20230112_061318_000_6881.jpg,,3,,"2656, 1520",,S,,Sand,,AB
-128,../test-images/20230112_061318_000_6881.jpg,,4,,"1328, 2280",,S,,Sand,,AB
-129,../test-images/20230112_061318_000_6881.jpg,,5,,"3984, 2280",,S,,Sand,,AB
-130,../test-images/20230112_061319_000_6882.jpg,,1,,"1328, 760",,S,,Sand,,AB
-131,../test-images/20230112_061319_000_6882.jpg,,2,,"3984, 760",,S,,Sand,,AB
-132,../test-images/20230112_061319_000_6882.jpg,,3,,"2656, 1520",,S,,Sand,,AB
-133,../test-images/20230112_061319_000_6882.jpg,,4,,"1328, 2280",,S,,Sand,,AB
-134,../test-images/20230112_061319_000_6882.jpg,,5,,"3984, 2280",,S,,Sand,,AB
-135,../test-images/20230112_061319_000_6883.jpg,,1,,"1328, 760",,UNK,,Unknown,,IN
-136,../test-images/20230112_061319_000_6883.jpg,,2,,"3984, 760",,S,,Sand,,AB
-137,../test-images/20230112_061319_000_6883.jpg,,3,,"2656, 1520",,S,,Sand,,AB
-138,../test-images/20230112_061319_000_6883.jpg,,4,,"1328, 2280",,S,,Sand,,AB
-139,../test-images/20230112_061319_000_6883.jpg,,5,,"3984, 2280",,S,,Sand,,AB
-140,../test-images/20230112_061320_000_6884.jpg,,1,,"1328, 760",,S,,Sand,,AB
-141,../test-images/20230112_061320_000_6884.jpg,,2,,"3984, 760",,S,,Sand,,AB
-142,../test-images/20230112_061320_000_6884.jpg,,3,,"2656, 1520",,S,,Sand,,AB
-143,../test-images/20230112_061320_000_6884.jpg,,4,,"1328, 2280",,UNK,,Unknown,,IN
-144,../test-images/20230112_061320_000_6884.jpg,,5,,"3984, 2280",,S,,Sand,,AB
-145,../test-images/20230112_061320_000_6886.jpg,,1,,"1328, 760",,S,,Sand,,AB
-146,../test-images/20230112_061320_000_6886.jpg,,2,,"3984, 760",,UNK,,Unknown,,IN
-147,../test-images/20230112_061320_000_6886.jpg,,3,,"2656, 1520",,S,,Sand,,AB
-148,../test-images/20230112_061320_000_6886.jpg,,4,,"1328, 2280",,UNK,,Unknown,,IN
-149,../test-images/20230112_061320_000_6886.jpg,,5,,"3984, 2280",,UNK,,Unknown,,IN
+0,../test-images\20230112_061308_000_6852.jpg,,1,,"1328, 760",,ACB,,Branching Acropora,,HC
+1,../test-images\20230112_061308_000_6852.jpg,,2,,"3984, 760",,UNK-R,,Unknown - Review?,,IN
+2,../test-images\20230112_061308_000_6852.jpg,,3,,"2656, 1520",,ACB,,Branching Acropora,,HC
+3,../test-images\20230112_061308_000_6852.jpg,,4,,"1328, 2280",,TA,,Turf algae,,A
+4,../test-images\20230112_061308_000_6852.jpg,,5,,"3984, 2280",,TA,,Turf algae,,A
+5,../test-images\20230112_061308_000_6853.jpg,,1,,"1328, 760",,CE-B,,Encrusting non-Acropora - Bleached,,HC
+6,../test-images\20230112_061308_000_6853.jpg,,2,,"3984, 760",,TA,,Turf algae,,A
+7,../test-images\20230112_061308_000_6853.jpg,,3,,"2656, 1520",,ACB,,Branching Acropora,,HC
+8,../test-images\20230112_061308_000_6853.jpg,,4,,"1328, 2280",,ACO,,Corymbose Acropora,,HC
+9,../test-images\20230112_061308_000_6853.jpg,,5,,"3984, 2280",,ACB,,Branching Acropora,,HC
+10,../test-images\20230112_061308_000_6854.jpg,,1,,"1328, 760",,UNK,,Unknown,,IN
+11,../test-images\20230112_061308_000_6854.jpg,,2,,"3984, 760",,TA,,Turf algae,,A
+12,../test-images\20230112_061308_000_6854.jpg,,3,,"2656, 1520",,TA,,Turf algae,,A
+13,../test-images\20230112_061308_000_6854.jpg,,4,,"1328, 2280",,ACO,,Corymbose Acropora,,HC
+14,../test-images\20230112_061308_000_6854.jpg,,5,,"3984, 2280",,TA,,Turf algae,,A
+15,../test-images\20230112_061309_000_6855.jpg,,1,,"1328, 760",,ACO,,Corymbose Acropora,,HC
+16,../test-images\20230112_061309_000_6855.jpg,,2,,"3984, 760",,ACO,,Corymbose Acropora,,HC
+17,../test-images\20230112_061309_000_6855.jpg,,3,,"2656, 1520",,TA,,Turf algae,,A
+18,../test-images\20230112_061309_000_6855.jpg,,4,,"1328, 2280",,TA,,Turf algae,,A
+19,../test-images\20230112_061309_000_6855.jpg,,5,,"3984, 2280",,TA,,Turf algae,,A
+20,../test-images\20230112_061309_000_6857.jpg,,1,,"1328, 760",,ACB,,Branching Acropora,,HC
+21,../test-images\20230112_061309_000_6857.jpg,,2,,"3984, 760",,ACB,,Branching Acropora,,HC
+22,../test-images\20230112_061309_000_6857.jpg,,3,,"2656, 1520",,ACB,,Branching Acropora,,HC
+23,../test-images\20230112_061309_000_6857.jpg,,4,,"1328, 2280",,ACT,,Tabulate Acropora,,HC
+24,../test-images\20230112_061309_000_6857.jpg,,5,,"3984, 2280",,ACT,,Tabulate Acropora,,HC
+25,../test-images\20230112_061310_000_6858.jpg,,1,,"1328, 760",,UNK,,Unknown,,IN
+26,../test-images\20230112_061310_000_6858.jpg,,2,,"3984, 760",,ACO,,Corymbose Acropora,,HC
+27,../test-images\20230112_061310_000_6858.jpg,,3,,"2656, 1520",,TA,,Turf algae,,A
+28,../test-images\20230112_061310_000_6858.jpg,,4,,"1328, 2280",,CM,,Massive non-Acropora,,HC
+29,../test-images\20230112_061310_000_6858.jpg,,5,,"3984, 2280",,ACD-B,,Digitate Acropora - Bleached,,HC
+30,../test-images\20230112_061310_000_6859.jpg,,1,,"1328, 760",,CM,,Massive non-Acropora,,HC
+31,../test-images\20230112_061310_000_6859.jpg,,2,,"3984, 760",,ACB,,Branching Acropora,,HC
+32,../test-images\20230112_061310_000_6859.jpg,,3,,"2656, 1520",,TA,,Turf algae,,A
+33,../test-images\20230112_061310_000_6859.jpg,,4,,"1328, 2280",,ACB,,Branching Acropora,,HC
+34,../test-images\20230112_061310_000_6859.jpg,,5,,"3984, 2280",,ACB-B,,Branching Acropora - Bleached,,HC
+35,../test-images\20230112_061311_000_6860.jpg,,1,,"1328, 760",,DC,,Dead coral (recent),,AB
+36,../test-images\20230112_061311_000_6860.jpg,,2,,"3984, 760",,ACT,,Tabulate Acropora,,HC
+37,../test-images\20230112_061311_000_6860.jpg,,3,,"2656, 1520",,CM,,Massive non-Acropora,,HC
+38,../test-images\20230112_061311_000_6860.jpg,,4,,"1328, 2280",,UNK-R,,Unknown - Review?,,IN
+39,../test-images\20230112_061311_000_6860.jpg,,5,,"3984, 2280",,UNK-R,,Unknown - Review?,,IN
+40,../test-images\20230112_061311_000_6861.jpg,,1,,"1328, 760",,ACT,,Tabulate Acropora,,HC
+41,../test-images\20230112_061311_000_6861.jpg,,2,,"3984, 760",,UNK,,Unknown,,IN
+42,../test-images\20230112_061311_000_6861.jpg,,3,,"2656, 1520",,UNK-R,,Unknown - Review?,,IN
+43,../test-images\20230112_061311_000_6861.jpg,,4,,"1328, 2280",,ACB,,Branching Acropora,,HC
+44,../test-images\20230112_061311_000_6861.jpg,,5,,"3984, 2280",,DC,,Dead coral (recent),,AB
+45,../test-images\20230112_061312_000_6863.jpg,,1,,"1328, 760",,ACO,,Corymbose Acropora,,HC
+46,../test-images\20230112_061312_000_6863.jpg,,2,,"3984, 760",,TA,,Turf algae,,A
+47,../test-images\20230112_061312_000_6863.jpg,,3,,"2656, 1520",,ACT,,Tabulate Acropora,,HC
+48,../test-images\20230112_061312_000_6863.jpg,,4,,"1328, 2280",,ACO,,Corymbose Acropora,,HC
+49,../test-images\20230112_061312_000_6863.jpg,,5,,"3984, 2280",,ACT,,Tabulate Acropora,,HC
+50,../test-images\20230112_061312_000_6865.jpg,,1,,"1328, 760",,UNK-R,,Unknown - Review?,,IN
+51,../test-images\20230112_061312_000_6865.jpg,,2,,"3984, 760",,CM,,Massive non-Acropora,,HC
+52,../test-images\20230112_061312_000_6865.jpg,,3,,"2656, 1520",,CE-B,,Encrusting non-Acropora - Bleached,,HC
+53,../test-images\20230112_061312_000_6865.jpg,,4,,"1328, 2280",,ACB,,Branching Acropora,,HC
+54,../test-images\20230112_061312_000_6865.jpg,,5,,"3984, 2280",,TA,,Turf algae,,A
+55,../test-images\20230112_061313_000_6866.jpg,,1,,"1328, 760",,CT,,Tabulate non-Acropora,,HC
+56,../test-images\20230112_061313_000_6866.jpg,,2,,"3984, 760",,ACT,,Tabulate Acropora,,HC
+57,../test-images\20230112_061313_000_6866.jpg,,3,,"2656, 1520",,ACT,,Tabulate Acropora,,HC
+58,../test-images\20230112_061313_000_6866.jpg,,4,,"1328, 2280",,TA,,Turf algae,,A
+59,../test-images\20230112_061313_000_6866.jpg,,5,,"3984, 2280",,UNK,,Unknown,,IN
+60,../test-images\20230112_061313_000_6867.jpg,,1,,"1328, 760",,CM,,Massive non-Acropora,,HC
+61,../test-images\20230112_061313_000_6867.jpg,,2,,"3984, 760",,ACT,,Tabulate Acropora,,HC
+62,../test-images\20230112_061313_000_6867.jpg,,3,,"2656, 1520",,DC,,Dead coral (recent),,AB
+63,../test-images\20230112_061313_000_6867.jpg,,4,,"1328, 2280",,CM,,Massive non-Acropora,,HC
+64,../test-images\20230112_061313_000_6867.jpg,,5,,"3984, 2280",,ACO,,Corymbose Acropora,,HC
+65,../test-images\20230112_061314_000_6868.jpg,,1,,"1328, 760",,ACT,,Tabulate Acropora,,HC
+66,../test-images\20230112_061314_000_6868.jpg,,2,,"3984, 760",,ACB,,Branching Acropora,,HC
+67,../test-images\20230112_061314_000_6868.jpg,,3,,"2656, 1520",,ACT,,Tabulate Acropora,,HC
+68,../test-images\20230112_061314_000_6868.jpg,,4,,"1328, 2280",,ACB,,Branching Acropora,,HC
+69,../test-images\20230112_061314_000_6868.jpg,,5,,"3984, 2280",,ACT,,Tabulate Acropora,,HC
+70,../test-images\20230112_061314_000_6869.jpg,,1,,"1328, 760",,CM,,Massive non-Acropora,,HC
+71,../test-images\20230112_061314_000_6869.jpg,,2,,"3984, 760",,SE-B,,Encrusting Soft Coral - Bleached,,SC-B
+72,../test-images\20230112_061314_000_6869.jpg,,3,,"2656, 1520",,ACT,,Tabulate Acropora,,HC
+73,../test-images\20230112_061314_000_6869.jpg,,4,,"1328, 2280",,TA,,Turf algae,,A
+74,../test-images\20230112_061314_000_6869.jpg,,5,,"3984, 2280",,ACT,,Tabulate Acropora,,HC
+75,../test-images\20230112_061314_000_6870.jpg,,1,,"1328, 760",,UNK-R,,Unknown - Review?,,IN
+76,../test-images\20230112_061314_000_6870.jpg,,2,,"3984, 760",,UNK,,Unknown,,IN
+77,../test-images\20230112_061314_000_6870.jpg,,3,,"2656, 1520",,ACT,,Tabulate Acropora,,HC
+78,../test-images\20230112_061314_000_6870.jpg,,4,,"1328, 2280",,CT,,Tabulate non-Acropora,,HC
+79,../test-images\20230112_061314_000_6870.jpg,,5,,"3984, 2280",,ACT,,Tabulate Acropora,,HC
+80,../test-images\20230112_061315_000_6871.jpg,,1,,"1328, 760",,ACT,,Tabulate Acropora,,HC
+81,../test-images\20230112_061315_000_6871.jpg,,2,,"3984, 760",,S,,Sand,,AB
+82,../test-images\20230112_061315_000_6871.jpg,,3,,"2656, 1520",,UNK,,Unknown,,IN
+83,../test-images\20230112_061315_000_6871.jpg,,4,,"1328, 2280",,ACT,,Tabulate Acropora,,HC
+84,../test-images\20230112_061315_000_6871.jpg,,5,,"3984, 2280",,ACB,,Branching Acropora,,HC
+85,../test-images\20230112_061315_000_6872.jpg,,1,,"1328, 760",,S,,Sand,,AB
+86,../test-images\20230112_061315_000_6872.jpg,,2,,"3984, 760",,S,,Sand,,AB
+87,../test-images\20230112_061315_000_6872.jpg,,3,,"2656, 1520",,UNK,,Unknown,,IN
+88,../test-images\20230112_061315_000_6872.jpg,,4,,"1328, 2280",,CM,,Massive non-Acropora,,HC
+89,../test-images\20230112_061315_000_6872.jpg,,5,,"3984, 2280",,S,,Sand,,AB
+90,../test-images\20230112_061315_000_6873.jpg,,1,,"1328, 760",,S,,Sand,,AB
+91,../test-images\20230112_061315_000_6873.jpg,,2,,"3984, 760",,S,,Sand,,AB
+92,../test-images\20230112_061315_000_6873.jpg,,3,,"2656, 1520",,S,,Sand,,AB
+93,../test-images\20230112_061315_000_6873.jpg,,4,,"1328, 2280",,ACT,,Tabulate Acropora,,HC
+94,../test-images\20230112_061315_000_6873.jpg,,5,,"3984, 2280",,S,,Sand,,AB
+95,../test-images\20230112_061316_000_6874.jpg,,1,,"1328, 760",,S,,Sand,,AB
+96,../test-images\20230112_061316_000_6874.jpg,,2,,"3984, 760",,UNK,,Unknown,,IN
+97,../test-images\20230112_061316_000_6874.jpg,,3,,"2656, 1520",,S,,Sand,,AB
+98,../test-images\20230112_061316_000_6874.jpg,,4,,"1328, 2280",,S,,Sand,,AB
+99,../test-images\20230112_061316_000_6874.jpg,,5,,"3984, 2280",,S,,Sand,,AB
+100,../test-images\20230112_061316_000_6875.jpg,,1,,"1328, 760",,S,,Sand,,AB
+101,../test-images\20230112_061316_000_6875.jpg,,2,,"3984, 760",,S,,Sand,,AB
+102,../test-images\20230112_061316_000_6875.jpg,,3,,"2656, 1520",,S,,Sand,,AB
+103,../test-images\20230112_061316_000_6875.jpg,,4,,"1328, 2280",,S,,Sand,,AB
+104,../test-images\20230112_061316_000_6875.jpg,,5,,"3984, 2280",,S,,Sand,,AB
+105,../test-images\20230112_061317_000_6876.jpg,,1,,"1328, 760",,R,,Rubble,,AB
+106,../test-images\20230112_061317_000_6876.jpg,,2,,"3984, 760",,S,,Sand,,AB
+107,../test-images\20230112_061317_000_6876.jpg,,3,,"2656, 1520",,S,,Sand,,AB
+108,../test-images\20230112_061317_000_6876.jpg,,4,,"1328, 2280",,UNK,,Unknown,,IN
+109,../test-images\20230112_061317_000_6876.jpg,,5,,"3984, 2280",,S,,Sand,,AB
+110,../test-images\20230112_061317_000_6877.jpg,,1,,"1328, 760",,S,,Sand,,AB
+111,../test-images\20230112_061317_000_6877.jpg,,2,,"3984, 760",,S,,Sand,,AB
+112,../test-images\20230112_061317_000_6877.jpg,,3,,"2656, 1520",,UNK,,Unknown,,IN
+113,../test-images\20230112_061317_000_6877.jpg,,4,,"1328, 2280",,S,,Sand,,AB
+114,../test-images\20230112_061317_000_6877.jpg,,5,,"3984, 2280",,R,,Rubble,,AB
+115,../test-images\20230112_061317_000_6878.jpg,,1,,"1328, 760",,S,,Sand,,AB
+116,../test-images\20230112_061317_000_6878.jpg,,2,,"3984, 760",,S,,Sand,,AB
+117,../test-images\20230112_061317_000_6878.jpg,,3,,"2656, 1520",,S,,Sand,,AB
+118,../test-images\20230112_061317_000_6878.jpg,,4,,"1328, 2280",,S,,Sand,,AB
+119,../test-images\20230112_061317_000_6878.jpg,,5,,"3984, 2280",,S,,Sand,,AB
+120,../test-images\20230112_061318_000_6880.jpg,,1,,"1328, 760",,R,,Rubble,,AB
+121,../test-images\20230112_061318_000_6880.jpg,,2,,"3984, 760",,S,,Sand,,AB
+122,../test-images\20230112_061318_000_6880.jpg,,3,,"2656, 1520",,UNK,,Unknown,,IN
+123,../test-images\20230112_061318_000_6880.jpg,,4,,"1328, 2280",,S,,Sand,,AB
+124,../test-images\20230112_061318_000_6880.jpg,,5,,"3984, 2280",,S,,Sand,,AB
+125,../test-images\20230112_061318_000_6881.jpg,,1,,"1328, 760",,S,,Sand,,AB
+126,../test-images\20230112_061318_000_6881.jpg,,2,,"3984, 760",,S,,Sand,,AB
+127,../test-images\20230112_061318_000_6881.jpg,,3,,"2656, 1520",,S,,Sand,,AB
+128,../test-images\20230112_061318_000_6881.jpg,,4,,"1328, 2280",,S,,Sand,,AB
+129,../test-images\20230112_061318_000_6881.jpg,,5,,"3984, 2280",,S,,Sand,,AB
+130,../test-images\20230112_061319_000_6882.jpg,,1,,"1328, 760",,S,,Sand,,AB
+131,../test-images\20230112_061319_000_6882.jpg,,2,,"3984, 760",,S,,Sand,,AB
+132,../test-images\20230112_061319_000_6882.jpg,,3,,"2656, 1520",,S,,Sand,,AB
+133,../test-images\20230112_061319_000_6882.jpg,,4,,"1328, 2280",,S,,Sand,,AB
+134,../test-images\20230112_061319_000_6882.jpg,,5,,"3984, 2280",,S,,Sand,,AB
+135,../test-images\20230112_061319_000_6883.jpg,,1,,"1328, 760",,UNK,,Unknown,,IN
+136,../test-images\20230112_061319_000_6883.jpg,,2,,"3984, 760",,S,,Sand,,AB
+137,../test-images\20230112_061319_000_6883.jpg,,3,,"2656, 1520",,S,,Sand,,AB
+138,../test-images\20230112_061319_000_6883.jpg,,4,,"1328, 2280",,S,,Sand,,AB
+139,../test-images\20230112_061319_000_6883.jpg,,5,,"3984, 2280",,S,,Sand,,AB
+140,../test-images\20230112_061320_000_6884.jpg,,1,,"1328, 760",,S,,Sand,,AB
+141,../test-images\20230112_061320_000_6884.jpg,,2,,"3984, 760",,S,,Sand,,AB
+142,../test-images\20230112_061320_000_6884.jpg,,3,,"2656, 1520",,S,,Sand,,AB
+143,../test-images\20230112_061320_000_6884.jpg,,4,,"1328, 2280",,UNK,,Unknown,,IN
+144,../test-images\20230112_061320_000_6884.jpg,,5,,"3984, 2280",,S,,Sand,,AB
+145,../test-images\20230112_061320_000_6886.jpg,,1,,"1328, 760",,S,,Sand,,AB
+146,../test-images\20230112_061320_000_6886.jpg,,2,,"3984, 760",,UNK,,Unknown,,IN
+147,../test-images\20230112_061320_000_6886.jpg,,3,,"2656, 1520",,S,,Sand,,AB
+148,../test-images\20230112_061320_000_6886.jpg,,4,,"1328, 2280",,UNK,,Unknown,,IN
+149,../test-images\20230112_061320_000_6886.jpg,,5,,"3984, 2280",,UNK,,Unknown,,IN

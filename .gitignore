@@ -1,10 +1,14 @@
 ## Ignore the images directory (large files)
 data/input_images/*
 test-images
-results/results_original.csv
 
 ## Ignore large libraries
 lib
 
 ## Ignore saved docker containers (large files)
 reefscan-inference*.gz
+
+# Temporary test files -- local only
+results/results_original.csv
+models/temp_features.csv
+results/coverage-summary_original.csv

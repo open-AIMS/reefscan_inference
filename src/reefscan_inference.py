@@ -170,14 +170,17 @@ def infer_features(input_data,
 
 
     saved_state_batch_size = 512
+    array_of_dfs = split_df(df, saved_state_batch_size)
 
     loaded_df = pd.DataFrame()
+
+    # Check if dataframe was previously cached and saved in a temp file
     if os.path.exists(temp_feature_out_path):
         print(f'\n###\n#\n# FOUND TEMPORARY SAVED STATE FILE\n#\n###\n')
         loaded_df, saved_state_cursor = load_saved_state(temp_feature_out_path)
-        array_of_dfs = split_df(df.iloc[saved_state_cursor+1 :], saved_state_batch_size)
-    else:
-        array_of_dfs = split_df(df, saved_state_batch_size)
+        # Check if cache is actually matching the image data path
+        if loaded_df.at[0, 'image_path'] == df.at[0, 'image_path']:
+            array_of_dfs = split_df(df.iloc[saved_state_cursor+1 :], saved_state_batch_size)
 
     tic = time()
     print('Starting inference...')
@@ -300,7 +303,11 @@ def infer_class(features_data, model, scaler, encoder, group_labels_csv_file, ou
     print(df_results)
     df_results.to_csv(output_results_file)
 
+
     df_coverage = pd.DataFrame()
+    df_results.drop(df_results.loc[df_results['true_group']=='IN'].index, inplace=True)
+    df_results.drop(df_results.loc[df_results['pred_group']=='IN'].index, inplace=True)
+
     df_coverage['true_counts'] = df_results.groupby('true_group').size()
     df_coverage['true_percentage'] = [element / df_coverage['true_counts'].sum() for element in df_coverage['true_counts']]
     df_coverage['pred_counts'] = df_results.groupby('pred_group').size()
