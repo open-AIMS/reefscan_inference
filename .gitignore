@@ -3,6 +3,8 @@ data/input_images/*
 test-images
 
 ## Ignore large libraries
+build
+dist
 lib
 
 ## Ignore saved docker containers (large files)

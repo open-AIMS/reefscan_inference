@@ -17,9 +17,16 @@ except:
     from keras.preprocessing.image import array_to_img, load_img, img_to_array
 from keras.models import load_model, Model
 
-import utils
-from inference_csv import convertTime
-from old.fullimagepointcroppingloader import FullImagePointCroppingLoader
+if __name__ == "__main__":
+    import utils.utils as utils
+    from batch_monitor import BatchMonitor
+    from inference_csv import convertTime
+    from utils.old.fullimagepointcroppingloader import FullImagePointCroppingLoader
+else:
+    import inferencer.utils.utils as utils
+    from inferencer.batch_monitor import BatchMonitor
+    from inferencer.inference_csv import convertTime
+    from inferencer.utils.old.fullimagepointcroppingloader import FullImagePointCroppingLoader
 
 DEFAULT_COORDS=['1328, 760',
 '3984, 760',
@@ -119,11 +126,16 @@ def read_csv_and_get_relevant_fields(csvpath, localimagedir):
 
 def split_df(df, batch_size):
     array_of_dfs = []
-    array_size = int(len(df) / batch_size) + 1
+    if len(df) % batch_size == 0:
+        array_size = int(len(df) / batch_size)
+    else:
+        array_size = int(len(df) / batch_size) + 1
+
     for i in range(array_size):
         start_idx = i * batch_size
         end_idx = np.minimum(len(df), (i+1) * batch_size)
         array_of_dfs.append(df.iloc[start_idx : end_idx])
+
     return array_of_dfs
 
 def merge_df(array_of_dfs):
@@ -145,8 +157,11 @@ def infer_features(input_data,
               label_key='point_human_classification',
               cut_divisor=12,
               feature_out_path='../models/features.csv',
-              temp_feature_out_path='../models/temp_features.csv'):
+              temp_feature_out_path='../models/temp_features.csv',
+              saved_state_batch_size = 512,
+              batch_monitor=BatchMonitor()):
 
+    batch_monitor.log('infer_features() start')
 
     IMG_PATH_KEY = image_path_key
     POINT_X_KEY = point_x_key
@@ -161,18 +176,37 @@ def infer_features(input_data,
 
     print(df)
 
+    batch_monitor.set_total_images(len(df))
+    batch_monitor.initialise_tick()
+
+    batch_monitor.log('cropping function')
 
     def cropping_function(image_dict):
         patch = load_image_and_crop_localfile(image_dict["image_path"], image_dict["point_x"], image_dict["point_y"], 256, 256,cut_divisor=cut_divisor)
-        patch = img_to_array(patch)            
+        patch = img_to_array(patch)
+        batch_monitor.log(f'{image_dict["image_path"]}, {image_dict["point_x"]}, {image_dict["point_y"]}')
+        batch_monitor.log('patch' if isinstance(patch, np.ndarray) else 'no patch')
+        batch_monitor.log('empty patch' if patch.size==0 else 'filled patch')
+        
+        import inspect
+
+        stacklimit = 11
+        stackdepth = np.minimum(stacklimit, len(inspect.stack()))
+        callers = [inspect.stack()[n] for n in range(1, stackdepth + 1)]
+
+        for caller in callers:
+            batch_monitor.log(f'{caller}')
+
+
         return patch
 
+    batch_monitor.log('split_df')
 
-
-    saved_state_batch_size = 512
     array_of_dfs = split_df(df, saved_state_batch_size)
 
     loaded_df = pd.DataFrame()
+
+    batch_monitor.log('load saved state')
 
     # Check if dataframe was previously cached and saved in a temp file
     if os.path.exists(temp_feature_out_path):
@@ -185,70 +219,70 @@ def infer_features(input_data,
     tic = time()
     print('Starting inference...')
 
+    batch_monitor.log('enumerate loop')
+
     for df_idx, part_df in enumerate(array_of_dfs):
-        print(f'Processing this particular DF: \n {part_df} \n :::::')
+        if not batch_monitor.cancelled:
+            print(f'Processing this particular DF: \n {part_df} \n :::::')
 
-        X = []
-        y = []
-        if LABEL_KEY == 'unlabelled':
-            for index, row in part_df.iterrows():
-                X.append({"image_path": row[IMG_PATH_KEY], "point_x": row[POINT_X_KEY], "point_y": row[POINT_Y_KEY]})
-                y.append(LABEL_KEY)
-        else: 
-            for index, row in part_df.iterrows():
-                X.append({"image_path": row[IMG_PATH_KEY], "point_x": row[POINT_X_KEY], "point_y": row[POINT_Y_KEY]})
-                y.append(row[LABEL_KEY])
+            X = []
+            y = []
+            if LABEL_KEY == 'unlabelled':
+                for index, row in part_df.iterrows():
+                    X.append({"image_path": row[IMG_PATH_KEY], "point_x": row[POINT_X_KEY], "point_y": row[POINT_Y_KEY]})
+                    y.append(LABEL_KEY)
+            else: 
+                for index, row in part_df.iterrows():
+                    X.append({"image_path": row[IMG_PATH_KEY], "point_x": row[POINT_X_KEY], "point_y": row[POINT_Y_KEY]})
+                    y.append(row[LABEL_KEY])
 
+            batch_monitor.log('FullImagePointCroppingLoader')
 
-        batch_size = 32
-
-        val_generator = FullImagePointCroppingLoader(X, y, batch_size, cropping_function)
-
-
-
-        if len(y) % batch_size == 0:
-            steps = len(y) // batch_size
-        else:
-            steps = (len(y) // batch_size) + 1
-
-        predictions = model.predict_generator(val_generator,
+            batch_size = 32
+            val_generator = FullImagePointCroppingLoader(X, y, batch_size, cropping_function)
+            if len(y) % batch_size == 0:
+                steps = len(y) // batch_size
+            else:
+                steps = (len(y) // batch_size) + 1
+            batch_monitor.log(f'predict_generator: val_generator={val_generator} steps={steps} X={X} y={y} bsize={batch_size}')
+            batch_monitor.log(f'model={model}')
+            batch_monitor.log(f'val generator patches length: {len(val_generator[0][0])}')
+            predictions = model.predict_generator(val_generator,
                                             steps=steps,
                                             verbose=1,
                                             workers=10)
-
-        print('Completed (feature extraction) inference of {} points in {}'.format(len(part_df), convertTime(time()-tic)))
-    
-
-        # create columns for feature vectors
-        print(np.shape(predictions), np.shape(predictions[0]))
+            
+            batch_monitor.log('after predict_generator')
+            print('Completed (feature extraction) inference of {} points in {}'.format(len(part_df), convertTime(time()-tic)))
+            batch_monitor.log('Completed (feature extraction) inference of {} points in {}'.format(len(part_df), convertTime(time()-tic)))
         
-        # cols = []
-        # for i in range(len(predictions[0])):
-        #     cols.append('feature_vector_{}'.format(i))
-        # df_vects = pd.DataFrame(predictions, columns=cols)
+            batch_monitor.log('feature vector columns')
 
-        # part_df = pd.concat([part_df, df_vects], axis=1)
+            # create columns for feature vectors
+            print(np.shape(predictions), np.shape(predictions[0]))
+            for i in range(len(predictions[0])):
+                part_df[f'feature_vector_{i}'] = predictions[:, i]
+            part_df = part_df[~part_df['image_path'].isin(GLOBAL_REMOVE_LIST)]
+            header_required = not os.path.exists(temp_feature_out_path)
 
+            batch_monitor.log('before part_df.to_csv...')
 
-        for i in range(len(predictions[0])):
-            part_df[f'feature_vector_{i}'] = predictions[:, i]
+            part_df.to_csv(temp_feature_out_path, mode='a', index=False, header=header_required)
+            print('Saved inference results to {}'.format(temp_feature_out_path))
+            print(f'DF After processing: \n {part_df} \n :::::')
+            array_of_dfs[df_idx] = part_df
+            batch_monitor.tick(len(part_df))
 
-        header_required = not os.path.exists(temp_feature_out_path)
+    batch_monitor.log('before temp cleanup')
 
-        part_df = part_df[~part_df['image_path'].isin(GLOBAL_REMOVE_LIST)]
-
-        part_df.to_csv(temp_feature_out_path, mode='a', index=False, header=header_required)
-        print('Saved inference results to {}'.format(temp_feature_out_path))
-
-        print(f'DF After processing: \n {part_df} \n :::::')
-
-
-        array_of_dfs[df_idx] = part_df
 
     df = merge_df(array_of_dfs)
     if os.path.exists(feature_out_path):
         os.remove(feature_out_path)
     os.rename(temp_feature_out_path, feature_out_path)
+
+    batch_monitor.log('after temp cleanup')
+
 
     if not loaded_df.empty:
         df = pd.concat([loaded_df, df], axis=0)
@@ -335,9 +369,11 @@ def inference(feature_extractor='../models/ft_ext/weights.best.hdf5',
               intermediate_feature_outputs_path='../models/features.csv',
               output_results_file='../results/results.csv',
               output_coverage_file='../results/coverage-summary.csv',
-              saved_state_file='../data/saved_state.csv',
+              saved_state_file='../models/temp_features.csv',
+              saved_state_batch_size=512,
               use_cache='False',
-              use_gpu='False'):
+              use_gpu='False',
+              batch_monitor=BatchMonitor()):
 
     # Resolve string args to bools
     using_cache = str2bool(use_cache)
@@ -361,10 +397,18 @@ def inference(feature_extractor='../models/ft_ext/weights.best.hdf5',
         df_features = pd.read_csv(intermediate_feature_outputs_path)
     else:
         print("Performing feature extraction...")
-        df_features = infer_features(df_input, feature_extractor, feature_out_path=intermediate_feature_outputs_path)
+        df_features = infer_features(df_input, 
+                                     feature_extractor, 
+                                     feature_out_path=intermediate_feature_outputs_path, 
+                                     temp_feature_out_path=saved_state_file, 
+                                     saved_state_batch_size=saved_state_batch_size,
+                                     batch_monitor=batch_monitor)
 
     model, scaler, encoder = joblib.load(classifier)
+    batch_monitor.log('before infer_class')
     infer_class(df_features, model, scaler, encoder, group_labels_csv_file, output_results_file, output_coverage_file)
+    
+    batch_monitor.finished = True
 
 def main(**kwargs):
     print('Starting inference')

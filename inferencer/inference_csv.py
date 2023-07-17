@@ -11,14 +11,20 @@ ImageFile.LOAD_TRUNCATED_IMAGES = True
 import numpy as np
 from keras.models import load_model
 import os.path as osp
-import utils
-from old.fullimagepointcroppingloader import FullImagePointCroppingLoader
+
 import pandas as pd
 import os
 import keras 
 from time import time
 
 from keras_preprocessing.image import img_to_array, array_to_img
+
+if __name__ == "__main__":
+    import utils.utils
+    from utils.old.fullimagepointcroppingloader import FullImagePointCroppingLoader
+else:
+    import inferencer.utils.utils
+    from inferencer.utils.old.fullimagepointcroppingloader import FullImagePointCroppingLoader   
 
 def convertTime(seconds):
     mins, sec = divmod(seconds, 60)

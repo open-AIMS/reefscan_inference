@@ -70,9 +70,9 @@ class MultilabelMetrics(Callback):
         print("Ranking Average Precision: %s - Ranking Loss: %s" % (str(ranking_precision), str(ranking_loss)))
         print("Accuracy: %s - Precision: %s - Recall: %s - F1: %s" % (str(accuracy), str(precision), str(recall), str(f1)))
 
-        fd = open('metriclogs.csv', 'a')
-        fd.write("%s, %s, %s, %s, %s, %s \n" % (str(ranking_precision), str(ranking_loss), str(accuracy), str(precision), str(recall), str(f1)))
-        fd.close()
+        # fd = open('metriclogs.csv', 'a')
+        # fd.write("%s, %s, %s, %s, %s, %s \n" % (str(ranking_precision), str(ranking_loss), str(accuracy), str(precision), str(recall), str(f1)))
+        # fd.close()
 
         #print(classification_report(y_true, y_pred, target_names=self.target_names))
 
