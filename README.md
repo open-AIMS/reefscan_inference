@@ -7,11 +7,28 @@ image_path | image_id | point_num | point_id | point_coordinate | true_class | p
 Additionally, it produces another .csv file containing a coverage summary of the class groups.
 
 ## Running the program
+
+First, activate the virtual environment (once per terminal session):
+```powershell
+# Windows (PowerShell)
+.venv\Scripts\Activate.ps1
+
+# Linux / macOS
+source .venv/bin/activate
 ```
+
+Then run from the project root:
+```
+python inferencer/reefscan_inference.py <optional arguments>
+```
+
+Or navigate into the `inferencer` directory and run directly:
+```
+cd inferencer
 python reefscan_inference.py <optional arguments>
 ```
 
-Optional arguments along with their default values:
+Optional arguments along with their default values (paths are relative to the current working directory):
 ```
 --feature_extractor='../models/ft_ext/weights.best.hdf5' 
 --classifier='../models/classifier/reefscan.sav'
@@ -32,16 +49,24 @@ Optional arguments along with their default values:
 
 ## Usage
 
-1. Navigate to `./src`
-2. Place the input images inside `./data/input_images`, or specify image path as follows:
+1. Activate the virtual environment (see above).
+2. Place the input images inside `./data/input_images`, or specify the path explicitly:
 ```py
-    python reefscan_inference.py --local_image_dir='<path-to-the-dir-with-new-images>'
+    python inferencer/reefscan_inference.py --local_image_dir='<path-to-the-dir-with-new-images>'
 ```
-3. Run the program
-    - The program will load `./models/ft_ext/weights.best.hdf5` as the feature extraction model
-    - The program will load `./models/classifier/reefscan.sav` as the classification model
-    - **OPTIONAL: When running the program again for the same particular set of images, add the argument `--use_cache` to save time and avoid redoing the feature extraction step. This is because when the program was first run, it would have saved an intermediate file `./models/features.csv` that caches the feature extraction results.**
-4. The program will output `./results/results.csv` for the predictions and `./results/coverage-summary.csv` for the coverage information.
+3. Run the program, overriding the model paths to point at `inferencer/models/`:
+```powershell
+python inferencer/reefscan_inference.py `
+    --feature_extractor=inferencer/models/ft_ext/weights.best.hdf5 `
+    --classifier=inferencer/models/classifier/reefscan.sav `
+    --group_labels_csv_file=inferencer/models/reefscan_group_labels.csv `
+    --intermediate_feature_outputs_path=inferencer/models/features.csv `
+    --local_image_dir=data/input_images `
+    --output_results_file=results/results.csv `
+    --output_coverage_file=results/coverage-summary.csv
+```
+    - **OPTIONAL: When running the program again for the same set of images, add `--use_cache=True` to skip the feature extraction step. The cached features are stored in `inferencer/models/features.csv`.**
+4. The program will output `results/results.csv` for the predictions and `results/coverage-summary.csv` for the coverage information.
 
 
 (**Update 2023-02-06**: Previously it was required to have a points csv file that goes with the input images. From this date it is now optional. The program will instead internally fill in a new dataframe that contains the 5 points that you would typically see in a points csv file)

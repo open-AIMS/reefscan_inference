@@ -3,11 +3,13 @@
 class BatchMonitor():
     n_images_completed: int = 0
     n_images_total: int = 0
-    ontick_callback_func = lambda x, y: None
     n_batches: int = 1
     cancelled: bool = False
     finished: bool = False
     alt_msg: str = ''
+
+    def __init__(self):
+        self.ontick_callback_func = lambda x, y: None
 
     def set_cancelled(self):
         self.cancelled = True

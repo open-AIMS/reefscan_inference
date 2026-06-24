@@ -18,6 +18,9 @@ except:
 from keras.models import load_model, Model
 
 if __name__ == "__main__":
+    _this_dir = os.path.dirname(os.path.abspath(__file__))
+    sys.path.insert(0, _this_dir)                        # for utils, batch_monitor, etc.
+    sys.path.insert(0, os.path.dirname(_this_dir))       # for inferencer.* package imports
     import utils.utils as utils
     from batch_monitor import BatchMonitor
     from inference_csv import convertTime
@@ -71,10 +74,12 @@ def make_columns(keylist, df_main, df_reference):
 
 # Creates a points dataframe that terates through the local test directory and
 # adds arbitrary coordinate values and point numbers similar to the typical exported reefscan points csv
-def create_points_df(localimagedir):
+def create_points_df(localimagedir, max_images=None):
     df = pd.DataFrame()
     files_list = os.listdir(localimagedir)
 
+    if max_images is not None:
+        files_list = files_list[:int(max_images)]
     df['image_path'] = [os.path.join(localimagedir, f) for f in files_list for i in range(5) ]
     df['point_coordinate'] = [default_coord for i in range(len(files_list)) for default_coord in DEFAULT_COORDS]
     df['point_num'] = [j+1 for i in range(len(files_list)) for j in range(5)]
@@ -333,17 +338,18 @@ def infer_class(features_data, model, scaler, encoder, group_labels_csv_file, ou
     df_results['true_group'] = df_results['true_class'].map(grp_mapping)
     df_results['pred_group'] = df_results['pred_class'].map(grp_mapping)
 
+    has_true_labels = df_results['true_class'].astype(str).str.strip().ne('').any()
+    if not has_true_labels:
+        df_results = df_results.drop(columns=['true_class', 'true_desc', 'true_group'])
 
     print(df_results)
     df_results.to_csv(output_results_file)
 
 
     df_coverage = pd.DataFrame()
-    df_results.drop(df_results.loc[df_results['true_group']=='IN'].index, inplace=True)
-    df_results.drop(df_results.loc[df_results['pred_group']=='IN'].index, inplace=True)
-
-    df_coverage['true_counts'] = df_results.groupby('true_group').size()
-    df_coverage['true_percentage'] = [element / df_coverage['true_counts'].sum() for element in df_coverage['true_counts']]
+    if has_true_labels:
+        df_coverage['true_counts'] = df_results.groupby('true_group').size()
+        df_coverage['true_percentage'] = [element / df_coverage['true_counts'].sum() for element in df_coverage['true_counts']]
     df_coverage['pred_counts'] = df_results.groupby('pred_group').size()
     df_coverage['pred_percentage'] = [element / df_coverage['pred_counts'].sum() for element in df_coverage['pred_counts']]
     df_coverage = df_coverage.fillna(0)
@@ -356,24 +362,46 @@ def infer_class(features_data, model, scaler, encoder, group_labels_csv_file, ou
 def str2bool(mystr):
     return False if mystr.lower() in ['0','false'] else True
 
-def inference(feature_extractor='../models/ft_ext/weights.best.hdf5', 
-              classifier='../models/classifier/reefscan.sav',
-              group_labels_csv_file='../models/reefscan_group_labels.csv', 
+def inference(feature_extractor=None, 
+              classifier=None,
+              group_labels_csv_file=None, 
               points_csv_file='',
-              local_image_dir='../data/input_images', 
+              local_image_dir=None, 
+              max_images=None,
               image_path_key='image_path', 
               point_x_key='pointx', 
               point_y_key='pointy', 
               label_key='point_human_classification',
               cut_divisor=12,
-              intermediate_feature_outputs_path='../models/features.csv',
-              output_results_file='../results/results.csv',
-              output_coverage_file='../results/coverage-summary.csv',
-              saved_state_file='../models/temp_features.csv',
+              intermediate_feature_outputs_path=None,
+              output_results_file=None,
+              output_coverage_file=None,
+              saved_state_file=None,
               saved_state_batch_size=512,
               use_cache='False',
               use_gpu='False',
               batch_monitor=BatchMonitor()):
+
+    # Resolve path defaults relative to the script's directory so the program
+    # works regardless of the current working directory.
+    _script_dir = os.path.dirname(os.path.abspath(__file__))
+    _project_dir = os.path.dirname(_script_dir)
+    if feature_extractor is None:
+        feature_extractor = os.path.join(_script_dir, 'models', 'ft_ext', 'weights.best.hdf5')
+    if classifier is None:
+        classifier = os.path.join(_script_dir, 'models', 'classifier', 'reefscan.sav')
+    if group_labels_csv_file is None:
+        group_labels_csv_file = os.path.join(_script_dir, 'models', 'reefscan_group_labels.csv')
+    if local_image_dir is None:
+        local_image_dir = os.path.join(_project_dir, 'data', 'input_images')
+    if intermediate_feature_outputs_path is None:
+        intermediate_feature_outputs_path = os.path.join(_script_dir, 'models', 'features.csv')
+    if output_results_file is None:
+        output_results_file = os.path.join(_project_dir, 'results', 'results.csv')
+    if output_coverage_file is None:
+        output_coverage_file = os.path.join(_project_dir, 'results', 'coverage-summary.csv')
+    if saved_state_file is None:
+        saved_state_file = os.path.join(_script_dir, 'models', 'temp_features.csv')
 
     # Resolve string args to bools
     using_cache = str2bool(use_cache)
@@ -389,7 +417,7 @@ def inference(feature_extractor='../models/ft_ext/weights.best.hdf5',
     if points_csv_file:
         df_input = read_csv_and_get_relevant_fields(points_csv_file, local_image_dir)
     else:
-        df_input = create_points_df(local_image_dir)
+        df_input = create_points_df(local_image_dir, max_images=max_images)
 
 
     if using_cache and os.path.exists(intermediate_feature_outputs_path):
@@ -423,6 +451,6 @@ def main(**kwargs):
     print(f'Total elapsed time is {overall_end - overall_start} seconds')
 
 if __name__ == '__main__':
-    sysargs = [arg.replace("--","") for arg in sys.argv[1:]]
-    main(**dict(arg.split('=') if '=' in arg else [arg, 'True'] for arg in sysargs))
+    sysargs = [arg[2:] if arg.startswith("--") else arg for arg in sys.argv[1:]]
+    main(**dict(arg.split('=', 1) if '=' in arg else [arg, 'True'] for arg in sysargs))
 
