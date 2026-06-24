@@ -7,7 +7,7 @@ setup(
         'inferencer.models.classifier': ['reefscan.sav'],
         'inferencer.models': ['reefscan_group_labels.csv'],
     },
-    version='1.1.4',
+    version='1.1.5',
     description='aims_reefscan_inferencer',
     author='AIMS',
     license='MIT',
